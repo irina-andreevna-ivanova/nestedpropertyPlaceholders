@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:props/myprops2.properties"/>
+        <property name="placeholderPrefix" value=":["/>
+        <property name="placeholderSuffix" value="]"/>
+    </bean>
+    <bean class="org.springframework.beans.factory.config.PropertyOverrideConfigurer"
+          p:locations="classpath:props/myprops3.properties"/>
+    <bean id="boo1" class="com.irs.mybeans.Bean1" p:b1str1="default">
+        <constructor-arg value=":[:[:[prop1].prop2].prop3]"/>
+
+        <property name="b1bool"><value>:[myKey:true]</value></property>
+
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boo:beans xmlns:boo="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <boo:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <boo:property name="location" value="classpath:props/myprops.properties"/>
+        <boo:property name="ignoreUnresolvablePlaceholders" value="false"/>
+        <boo:property name="placeholderPrefix" value="${"/>
+        <!--<boo:property name="order" value="0"/>-->
+
+    </boo:bean>
+    <boo:bean id="bean10" class="com.irs.mybeans.Bean1">
+        <boo:property name="b1str1" value="${${${number}${dot}level}${dot}child}"/>
+        <boo:property name="b1bool"><boo:value>${bean10${dot}b1bool}</boo:value></boo:property>
+        <boo:property name="b1prop">
+            <boo:props>
+                  <boo:prop key="${number}">${${${number}${dot}level}${dot}child}</boo:prop>
+            </boo:props>
+        </boo:property>
+        <boo:constructor-arg><boo:value>${${user.name}}</boo:value></boo:constructor-arg>
+    </boo:bean>
+    <boo:bean id="bean11" class="com.irs.mybeans.Bean1" p:b1str1="${${sample}.child}"
+              p:b1bool="${first${dot}level1${dot}bool}" p:b1str2="${p:b1str2}">
+        <boo:constructor-arg value="${idea.launcher.port}"/>
+    </boo:bean>
+    <boo:bean id="b2" class="com.irs.mybeans.Bean2">
+        <boo:property name="bean1"><boo:ref bean="${referenced.bean1}"></boo:ref></boo:property>
+        <boo:property name="defString">
+            <boo:value>${someKey: default}</boo:value>
+        </boo:property>
+    </boo:bean>
+
+
+</boo:beans>

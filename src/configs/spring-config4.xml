@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ppc1" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:props/myprops4.properties"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="placeholderPrefix" value="$${"/>
+    </bean>
+    <bean id="ppc2" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:props/myprops5.properties"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="placeholderPrefix" value="#["/>
+        <property name="placeholderSuffix" value="]"/>
+    </bean>
+    <bean id="bean1" class="com.irs.mybeans.Bean1">
+        <constructor-arg value="#[bean1.arg]"/>
+        <property name="b1str1" value="$${key2}"/>
+        <property name="b1str2" value="#[key1]"/>
+        <property name="b1bool" value="#[$${key3}.boolval]"/>
+    </bean>
+    <bean id="bean2" class="com.irs.mybeans.Bean2">
+
+        <property name="defString" value="#[key1]:$${key2}"/>
+    </bean>
+
+
+</beans>
